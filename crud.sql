@@ -27,8 +27,14 @@ WHERE
 
 
 -- 3)
-
-
+INSERT INTO produtos_pedidos
+     (pedido_id, produto_id)
+VALUES
+     (6,1),
+     (6,2),
+     (6,6),
+     (6,8),
+     (6,8);
 
 -- Leitura
 
@@ -53,11 +59,46 @@ WHERE
 -- Atualização
 
 -- 1)
-
-
+UPDATE 
+    clientes 
+SET
+    lealdade = (
+SELECT 
+    SUM(produtos.pts_de_lealdade)
+FROM 
+    produtos_pedidos
+JOIN
+    produtos ON produtos.id = produtos_pedidos.produto_id
+JOIN 
+    pedidos ON pedidos.id = produtos_pedidos.pedido_id
+JOIN 
+    clientes ON clientes.id = pedidos.cliente_id
+WHERE
+    clientes.nome ='Georgia')
+WHERE
+    nome = 'Georgia';
+ 
 
 -- Deleção
 
 -- 1)
+DELETE 
+FROM 
+     clientes
+WHERE 
+     nome = 'Marcelo';
+
+
+
+SELECT 
+    *
+FROM 
+    produtos_pedidos
+JOIN 
+    produtos ON produtos.id = produtos_pedidos.produto_id
+JOIN 
+    pedidos ON pedidos.id = produtos_pedidos.pedido_id
+JOIN 
+    clientes ON clientes.id = pedidos.cliente_id;
 
 
